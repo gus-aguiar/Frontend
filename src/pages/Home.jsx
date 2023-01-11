@@ -1,13 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import * as api from '../services/api';
 
 class Home extends React.Component {
   state = {
     products: [],
+    categories: [],
   };
 
+  async componentDidMount() {
+    const result = await api.getCategories();
+    this.setState({ categories: result });
+  }
+
   render() {
-    const { products } = this.state;
+    const { products, categories } = this.state;
     return (
       <div>
         <form>
@@ -19,6 +26,14 @@ class Home extends React.Component {
           )}
         </form>
         <Link to="/cart" data-testid="shopping-cart-button"> Carrinho de Compras</Link>
+        {categories.map((category) => (
+          (
+            <div key={ category.id }>
+              <button type="button" data-testid="category">{category.name}</button>
+            </div>
+          )
+        ))}
+        ;
       </div>
     );
   }
