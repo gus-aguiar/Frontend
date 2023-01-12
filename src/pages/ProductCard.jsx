@@ -17,7 +17,14 @@ class ProductCard extends React.Component {
           alt={ product.title }
         />
         <p>{ product.price }</p>
-        <Link to="/cart">detalhes</Link>
+        <Link
+          to={ { pathname: `/productdetail/${product.id}`,
+            state: product } }
+          data-testid="product-detail-link"
+        >
+          detalhes
+
+        </Link>
       </div>
 
     );

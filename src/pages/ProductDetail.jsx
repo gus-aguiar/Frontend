@@ -2,8 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class ProductDetail extends React.Component {
+  handleClick = async () => {
+    const { history } = this.props;
+    return history.push('/cart');
+  };
+
   render() {
-    const { product } = this.props;
+    const { location: { state: product } } = this.props;
+    console.log(product);
     return (
       <div key={ product.id } data-testid="product" type="button">
         <p>{product.title}</p>
@@ -12,6 +18,13 @@ class ProductDetail extends React.Component {
           alt={ product.title }
         />
         <p>{ product.price }</p>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Carrinho de Compras
+
+        </button>
       </div>
 
     );
@@ -19,12 +32,8 @@ class ProductDetail extends React.Component {
 }
 
 ProductDetail.propTypes = {
-  product: PropTypes.shape({
-    id: PropTypes.string,
-    price: PropTypes.number,
-    thumbnail: PropTypes.string,
-    title: PropTypes.string,
-  }).isRequired,
+  location: PropTypes.string.isRequired,
+  history: PropTypes.string.isRequired,
 };
 
 export default ProductDetail;
