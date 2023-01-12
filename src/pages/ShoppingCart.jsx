@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCard from './ProductCard';
+import ProductCardonCart from './ProductCard';
 
 class ShoppingCart extends React.Component {
   state = {
@@ -24,7 +24,7 @@ class ShoppingCart extends React.Component {
             </p>
           )
           : cartProducts.map((product) => (
-            (<ProductCard key={ product.id } product={ product } />)
+            (<ProductCardonCart key={ product.id } product={ product } />)
           ))}
       </div>
 
