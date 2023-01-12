@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
+import ProductCard from './ProductCard';
 
 class Home extends React.Component {
   state = {
@@ -8,6 +9,8 @@ class Home extends React.Component {
     categories: [],
     search: '',
     result: [],
+    category: '',
+    infoReady: false,
   };
 
   async componentDidMount() {
@@ -22,13 +25,20 @@ class Home extends React.Component {
   handleClick = async (event) => {
     event.preventDefault();
     const { search } = this.state;
-    const result = await api.getProductsFromCategoryAndQuery(search);
-    this.setState({ result: result.results });
+    const searchResult = await api.getProductsFromCategoryAndQuery('', search);
+    this.setState({ result: searchResult.results });
+  };
+
+  handleClickTwo = async (event) => {
+    event.preventDefault();
+    const categoryResult = await api.getProductsFromCategoryAndQuery(event.target.id, '');
+    this.setState({
+      result: categoryResult.results,
+      infoReady: true });
   };
 
   render() {
-    const { products, categories, result } = this.state;
-    console.log(result);
+    const { products, categories, result, infoReady } = this.state;
     return (
       <div>
         <form>
@@ -55,23 +65,21 @@ class Home extends React.Component {
         {categories.map((category) => (
           (
             <div key={ category.id }>
-              <button type="button" data-testid="category">{category.name}</button>
+              <button
+                type="button"
+                data-testid="category"
+                onClick={ this.handleClickTwo }
+                id={ category.id }
+              >
+                {category.name}
+              </button>
             </div>
           )
         ))}
         ;
-        {result.length > 0
+        {result.length > 0 && infoReady
           ? result.map((product) => (
-            (
-              <div key={ product.id } data-testid="product">
-                <p>{product.title}</p>
-                <img
-                  src={ product.thumbnail }
-                  alt={ product.title }
-                />
-                <p>{ product.price }</p>
-              </div>
-            )
+            (<ProductCard key={ product.id } product={ product } />)
           )) : <p>Nenhum produto foi encontrado</p>}
       </div>
     );
