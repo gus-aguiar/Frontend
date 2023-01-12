@@ -5,14 +5,14 @@ class ProductCard extends React.Component {
   render() {
     const { product } = this.props;
     return (
-      <div key={ product.id } data-testid="product">
+      <button key={ product.id } data-testid="product" type="button">
         <p>{product.title}</p>
         <img
           src={ product.thumbnail }
           alt={ product.title }
         />
         <p>{ product.price }</p>
-      </div>
+      </button>
 
     );
   }
