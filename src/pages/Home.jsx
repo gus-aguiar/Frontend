@@ -9,7 +9,6 @@ class Home extends React.Component {
     categories: [],
     search: '',
     result: [],
-    category: '',
     infoReady: false,
   };
 
