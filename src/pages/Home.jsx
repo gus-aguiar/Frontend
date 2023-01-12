@@ -31,12 +31,10 @@ class Home extends React.Component {
 
   handleClickTwo = async (event) => {
     event.preventDefault();
-    this.setState({ category: event.target.id });
-    const { category } = this.state;
-    const categoryResult = await api.getProductsFromCategoryAndQuery(category, '');
+    const categoryResult = await api.getProductsFromCategoryAndQuery(event.target.id, '');
     this.setState({
       result: categoryResult.results,
-      infoReady: true, });
+      infoReady: true });
   };
 
   render() {
