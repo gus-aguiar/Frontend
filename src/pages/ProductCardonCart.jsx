@@ -2,14 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class ProductCardonCart extends React.Component {
-  addProductToCart = () => {
-    const { product: { title, thumbnail, price, id } } = this.props;
-    const produtoSalvo = localStorage.getItem('produtoSalvo');
-    const arrayProduct = produtoSalvo ? JSON.parse(produtoSalvo) : [];
-    arrayProduct.push({ title, thumbnail, price, id, quantity: 1 });
-    localStorage.setItem('produtoSalvo', JSON.stringify(arrayProduct));
-  };
-
   render() {
     const { product } = this.props;
     return (

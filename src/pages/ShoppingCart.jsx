@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCardonCart from './ProductCard';
+import ProductCardonCart from './ProductCardonCart';
 
 class ShoppingCart extends React.Component {
   state = {
